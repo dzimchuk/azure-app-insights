@@ -13,13 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Automation", "Automation", 
 		Automation\website-environment.template = Automation\website-environment.template
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A919FAEC-0A80-4D58-B9E2-1C131EEF9503}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFixIt", "MyFixIt\MyFixIt.csproj", "{DDE349EB-9611-4CDF-8953-38E6B3723D74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFixIt.Tests", "MyFixIt.Tests\MyFixIt.Tests.csproj", "{CDC7BC86-DC12-423E-83A1-42E66E13B38B}"
