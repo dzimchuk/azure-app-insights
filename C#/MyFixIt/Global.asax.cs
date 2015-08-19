@@ -13,35 +13,31 @@
 // limitations under the License.
 //
 
-using MyFixIt.App_Start;
-using MyFixIt.Logging;
-using MyFixIt.Persistence;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+using System.Web.Mvc;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using MyFixIt.App_Start;
+using MyFixIt.Common;
 
 namespace MyFixIt
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
-            DependenciesConfig.RegisterDependencies();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            PhotoService photoService = new PhotoService(new Logger());
-            photoService.CreateAndConfigureAsync();
+            var dependencyResolver = DependenciesConfig.RegisterDependencies();
 
-            DbConfiguration.SetConfiguration(new MyFixIt.Persistence.EFConfiguration());
+            var photoService = dependencyResolver.GetService<IPhotoService>();
+            photoService.CreateAndConfigureAsync();
         }
     }
 }

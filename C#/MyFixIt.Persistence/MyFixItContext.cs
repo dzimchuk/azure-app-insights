@@ -15,22 +15,28 @@
 
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
+using MyFixIt.Common.Models;
 
 namespace MyFixIt.Persistence
 {
-    public class MyFixItContext : DbContext
+    internal class MyFixItContext : DbContext
     {
+        static MyFixItContext()
+        {
+            DbConfiguration.SetConfiguration(new EFConfiguration());
+        }
+
         public MyFixItContext()
-            : base("name=appdb")
+            : base("name=DefaultConnection")
         {
         }
 
-        public DbSet<MyFixIt.Persistence.FixItTask> FixItTasks { get; set; }
+        public DbSet<FixItTask> FixItTasks { get; set; }
     }
 
     // EF follows a Code based Configration model and will look for a class that
     // derives from DbConfiguration for executing any Connection Resiliency strategies
-    public class EFConfiguration : DbConfiguration
+    internal class EFConfiguration : DbConfiguration
     {
         public EFConfiguration()
         {

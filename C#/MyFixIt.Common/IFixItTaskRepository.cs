@@ -14,14 +14,21 @@
 //
 
 using System;
-using System.Threading;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using MyFixIt.Common.Models;
 
-namespace MyFixIt.Persistence
+namespace MyFixIt.Common
 {
-    public interface IFixItQueueManager
+    public interface IFixItTaskRepository
     {
-        Task ProcessMessagesAsync(CancellationToken token);
-        Task SendMessageAsync(FixItTask fixIt);
+        Task<List<FixItTask>> FindOpenTasksByOwnerAsync(string userName);
+        Task<List<FixItTask>> FindTasksByCreatorAsync(string userName); 
+
+        Task<FixItTask> FindTaskByIdAsync(int id);
+ 
+        Task CreateAsync(FixItTask taskToAdd);
+        Task UpdateAsync(FixItTask taskToSave);
+        Task DeleteAsync(int id);
     }
 }

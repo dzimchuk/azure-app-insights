@@ -103,6 +103,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MyFixIt.Common\MyFixIt.Common.csproj">
+      <Project>{55f68619-5acd-4561-a1f5-a86f7ed8bcbb}</Project>
+      <Name>MyFixIt.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyFixIt.Logging\MyFixIt.Logging.csproj">
       <Project>{db8bff82-fc25-4fdf-9bcc-d5649873191c}</Project>
       <Name>MyFixIt.Logging</Name>

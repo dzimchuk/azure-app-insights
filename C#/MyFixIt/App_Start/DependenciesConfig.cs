@@ -14,32 +14,34 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using Autofac;
-using Autofac.Util;
+using System.Linq;
+using System.Web.Mvc;
 using Autofac.Integration.Mvc;
-using MyFixIt.Logging;
-using MyFixIt.Persistence;
+using MyFixIt.Logging.Composition;
 
 namespace MyFixIt.App_Start
 {
     public class DependenciesConfig
     {
-        public static void RegisterDependencies()
+        public static IDependencyResolver RegisterDependencies()
         {
-            var builder = new ContainerBuilder();
+            var assemblies = new[]
+                             {
+                                 typeof(CompositionModule).Assembly,
+                                 typeof(Persistence.Composition.CompositionModule).Assembly,
+                                 typeof(MvcApplication).Assembly
+                             };
 
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
-            builder.RegisterType<FixItTaskRepository>().As<IFixItTaskRepository>();
-            builder.RegisterType<PhotoService>().As<IPhotoService>().SingleInstance();
-            builder.RegisterType<FixItQueueManager>().As<IFixItQueueManager>();
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyModules(assemblies);
 
             var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            var dependencyResolver = new AutofacDependencyResolver(container);
+            DependencyResolver.SetResolver(dependencyResolver);
+
+            return dependencyResolver;
         }
     }
 }

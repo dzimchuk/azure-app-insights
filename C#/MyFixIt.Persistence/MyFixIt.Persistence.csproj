@@ -41,6 +41,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -107,6 +111,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -121,21 +126,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Composition\CompositionModule.cs" />
     <Compile Include="FixItQueueManager.cs" />
-    <Compile Include="FixItTask.cs" />
     <Compile Include="FixItTaskRepository.cs" />
-    <Compile Include="IFixItQueueManager.cs" />
-    <Compile Include="IFixItTaskRepository.cs" />
-    <Compile Include="IPhotoService.cs" />
     <Compile Include="MyFixItContext.cs" />
     <Compile Include="PhotoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyFixIt.Logging\MyFixIt.Logging.csproj">
-      <Project>{db8bff82-fc25-4fdf-9bcc-d5649873191c}</Project>
-      <Name>MyFixIt.Logging</Name>
+    <ProjectReference Include="..\MyFixIt.Common\MyFixIt.Common.csproj">
+      <Project>{55f68619-5acd-4561-a1f5-a86f7ed8bcbb}</Project>
+      <Name>MyFixIt.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

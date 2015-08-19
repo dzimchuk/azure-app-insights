@@ -13,9 +13,10 @@
 // limitations under the License.
 //
 
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MyFixIt.Persistence
+namespace MyFixIt.Common.Models
 {
     public class FixItTask
     {

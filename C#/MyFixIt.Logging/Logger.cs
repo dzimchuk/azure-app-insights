@@ -15,10 +15,11 @@
 
 using System;
 using System.Diagnostics;
+using MyFixIt.Common;
 
 namespace MyFixIt.Logging
 {
-    public class Logger : ILogger
+    internal class Logger : ILogger
     {
         //
         // Warning - trace information within the application 

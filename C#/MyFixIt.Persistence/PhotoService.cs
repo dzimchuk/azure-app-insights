@@ -13,20 +13,20 @@
 // limitations under the License.
 //
 
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using MyFixIt.Logging;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using MyFixIt.Common;
 
 namespace MyFixIt.Persistence
 {
-    public class PhotoService : IPhotoService
+    internal class PhotoService : IPhotoService
     {
-        ILogger log = null;
+        private readonly ILogger log;
 
         public PhotoService(ILogger logger)
         {

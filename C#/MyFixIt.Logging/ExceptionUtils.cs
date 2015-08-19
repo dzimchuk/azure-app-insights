@@ -22,7 +22,7 @@ using System.Text;
 
 namespace MyFixIt.Logging
 {
-    public class ExceptionUtils
+    internal class ExceptionUtils
     {
         public static string FormatExceptionSimple(Exception ex)
         {

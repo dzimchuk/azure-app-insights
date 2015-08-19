@@ -13,10 +13,11 @@
 // limitations under the License.
 //
 
+using System;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace MyFixIt.Persistence
+namespace MyFixIt.Common
 {
     public interface IPhotoService
     {

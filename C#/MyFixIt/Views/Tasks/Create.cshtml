@@ -15,7 +15,7 @@
 //
 *@
 
-@model MyFixIt.Persistence.FixItTask
+@model MyFixIt.Common.Models.FixItTask
 
 @{
     ViewBag.Title = "Create";
@@ -31,34 +31,34 @@
         
         <div class="form-group">
             @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Title)
-				@Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline" })
-			</div>
-		</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "help-inline" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Notes, new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
+            <div class="col-md-10">
                 @Html.TextAreaFor(model => model.Notes)
-				@Html.ValidationMessageFor(model => model.Notes, null, new { @class = "help-inline" })
-			</div>
-		</div>
+                @Html.ValidationMessageFor(model => model.Notes, null, new { @class = "help-inline" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Owner, new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Owner)
-				@Html.ValidationMessageFor(model => model.Owner, null, new { @class = "help-inline" })
-			</div>
-		</div>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Owner)
+                @Html.ValidationMessageFor(model => model.Owner, null, new { @class = "help-inline" })
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="control-label col-md-2" for="Photo">Optional Photo</label>
-			<div class="col-md-10">
+            <div class="col-md-10">
                 <input type="file" name="photo" />
-			</div>
-		</div>
+            </div>
+        </div>
 
         <div class="form-group">
             &nbsp;

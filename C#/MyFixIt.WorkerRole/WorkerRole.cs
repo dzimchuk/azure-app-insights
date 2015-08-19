@@ -13,14 +13,13 @@
 // limitations under the License.
 //
 
-using Autofac;
-using Microsoft.WindowsAzure.ServiceRuntime;
-using MyFixIt.Logging;
-using MyFixIt.Persistence;
 using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
+using Microsoft.WindowsAzure.ServiceRuntime;
+using MyFixIt.Common;
 
 namespace MyFixIt.WorkerRole
 {
@@ -28,7 +27,7 @@ namespace MyFixIt.WorkerRole
     {
         private IContainer container;
         private ILogger logger;
-        CancellationTokenSource tokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource tokenSource = new CancellationTokenSource();
 
         public override void Run()
         {
@@ -66,10 +65,15 @@ namespace MyFixIt.WorkerRole
             // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;
 
+            var assemblies = new[]
+                             {
+                                 typeof(Logging.Composition.CompositionModule).Assembly,
+                                 typeof(Persistence.Composition.CompositionModule).Assembly
+                             };
+
             var builder = new ContainerBuilder();
-            builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
-            builder.RegisterType<FixItTaskRepository>().As<IFixItTaskRepository>();
-            builder.RegisterType<FixItQueueManager>().As<IFixItQueueManager>();
+            builder.RegisterAssemblyModules(assemblies);
+
             container = builder.Build();
 
             logger = container.Resolve<ILogger>();

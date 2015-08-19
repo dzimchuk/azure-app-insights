@@ -15,43 +15,43 @@
 //
 *@
 
-@model MyFixIt.Persistence.FixItTask
+@model MyFixIt.Common.Models.FixItTask
 
 @{
     ViewBag.Title = "Details";
 }
 
 <fieldset>
-	<legend>@Html.DisplayFor(model => model.Title)</legend>
-	<dl>
+    <legend>@Html.DisplayFor(model => model.Title)</legend>
+    <dl>
 
-		<dt>
-			Opened By
-		</dt>
+        <dt>
+            Opened By
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.CreatedBy)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
 
         <br />
 
-		<dt>
-			@Html.DisplayNameFor(model => model.Notes)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.Notes)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
 
         <br />
 
         @if(Model.PhotoUrl != null) {
-		    <dd>
+            <dd>
                 <img src="@Model.PhotoUrl" title="@Model.Title" />
-		    </dd>
+            </dd>
         }
 
-	</dl>
+    </dl>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.FixItTaskId }) |

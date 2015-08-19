@@ -13,17 +13,18 @@
 // limitations under the License.
 //
 
-using MyFixIt.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MyFixIt.Common;
+using MyFixIt.Common.Models;
 
 namespace MyFixIt.Persistence
 {
-    public class FixItTaskRepository : IFixItTaskRepository, IDisposable
+    internal class FixItTaskRepository : IFixItTaskRepository, IDisposable
     {
         private MyFixItContext db = new MyFixItContext();
         private ILogger log = null;

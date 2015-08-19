@@ -16,10 +16,12 @@
 using MyFixIt.Persistence;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using MyFixIt.Common;
+using MyFixIt.Common.Models;
 
 namespace MyFixIt.Controllers
 {
-     [Authorize]
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly IFixItTaskRepository fixItRepository = null;

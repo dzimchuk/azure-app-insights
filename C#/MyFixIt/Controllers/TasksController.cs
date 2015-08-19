@@ -13,20 +13,22 @@
 // limitations under the License.
 //
 
-using MyFixIt.Persistence;
+using System;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MyFixIt.Common;
+using MyFixIt.Common.Models;
 
 namespace MyFixIt.Controllers
 {
     [Authorize]
     public class TasksController : Controller
     {
-        private IFixItTaskRepository fixItRepository = null;
-        private IPhotoService photoService = null;
-        private IFixItQueueManager queueManager = null;
+        private readonly IFixItTaskRepository fixItRepository;
+        private readonly IPhotoService photoService;
+        private readonly IFixItQueueManager queueManager;
 
         public TasksController(IFixItTaskRepository repository, IPhotoService photoStore, IFixItQueueManager queueManager)
         {
@@ -55,7 +57,8 @@ namespace MyFixIt.Controllers
         // POST: /Tasks/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FixItTaskId,CreatedBy,Owner,Title,Notes,PhotoUrl,IsDone")]FixItTask fixittask, HttpPostedFileBase photo)
+        public async Task<ActionResult> Create([Bind(Include = "FixItTaskId,CreatedBy,Owner,Title,Notes,PhotoUrl,IsDone")] FixItTask fixittask,
+                                               HttpPostedFileBase photo)
         {
             if (ModelState.IsValid)
             {

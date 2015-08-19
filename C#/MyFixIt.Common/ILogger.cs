@@ -15,7 +15,7 @@
 
 using System;
 
-namespace MyFixIt.Logging
+namespace MyFixIt.Common
 {
     public interface ILogger
     {
