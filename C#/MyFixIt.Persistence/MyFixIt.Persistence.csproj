@@ -127,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composition\CompositionModule.cs" />
+    <Compile Include="EFConfiguration.cs" />
     <Compile Include="FixItQueueManager.cs" />
     <Compile Include="FixItTaskRepository.cs" />
     <Compile Include="MyFixItContext.cs" />

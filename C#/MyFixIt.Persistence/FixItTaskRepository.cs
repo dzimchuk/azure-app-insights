@@ -104,7 +104,13 @@ namespace MyFixIt.Persistence
         {
             Stopwatch timespan = Stopwatch.StartNew();
 
-            try {
+            try
+            {
+                if (taskToAdd.Notes.Contains("fail me"))
+                {
+                    throw new Exception("Task cannot be created");
+                }
+
                 db.FixItTasks.Add(taskToAdd);
                 await db.SaveChangesAsync();
 

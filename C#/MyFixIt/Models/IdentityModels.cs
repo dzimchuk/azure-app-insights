@@ -13,7 +13,9 @@
 // limitations under the License.
 //
 
+using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MyFixIt.Persistence;
 
 namespace MyFixIt.Models
 {
@@ -22,6 +24,7 @@ namespace MyFixIt.Models
     {
     }
 
+    [DbConfigurationType(typeof(EFConfiguration))]
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
