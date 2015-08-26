@@ -14,11 +14,13 @@
 //
 
 using System;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Linq;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.ApplicationInsights.Extensibility;
 using MyFixIt.App_Start;
 using MyFixIt.Common;
 
@@ -34,6 +36,17 @@ namespace MyFixIt
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            InitializeApplicationInsights();
+            InitializePhotoService();
+        }
+
+        private static void InitializeApplicationInsights()
+        {
+            TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["ApplicationInsights.InstrumentationKey"];
+        }
+
+        private static void InitializePhotoService()
+        {
             var dependencyResolver = DependenciesConfig.RegisterDependencies();
 
             var photoService = dependencyResolver.GetService<IPhotoService>();
