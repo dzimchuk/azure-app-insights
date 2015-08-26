@@ -130,6 +130,7 @@
     <Compile Include="EFConfiguration.cs" />
     <Compile Include="FixItQueueManager.cs" />
     <Compile Include="FixItTaskRepository.cs" />
+    <Compile Include="LoggingFixtItRepository.cs" />
     <Compile Include="MyFixItContext.cs" />
     <Compile Include="PhotoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

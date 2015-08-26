@@ -8,8 +8,11 @@ namespace MyFixIt.Persistence.Composition
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<FixItQueueManager>().As<IFixItQueueManager>();
-            builder.RegisterType<FixItTaskRepository>().As<IFixItTaskRepository>();
             builder.RegisterType<PhotoService>().As<IPhotoService>();
+
+            builder.RegisterType<MyFixItContext>().AsSelf();
+            builder.RegisterType<FixItTaskRepository>().Named<IFixItTaskRepository>("fixitRepo");
+            builder.RegisterDecorator<IFixItTaskRepository>((c, inner) => new LoggingFixtItRepository(inner, c.Resolve<ILogger>()), fromKey: "fixitRepo");
         }
     }
 }

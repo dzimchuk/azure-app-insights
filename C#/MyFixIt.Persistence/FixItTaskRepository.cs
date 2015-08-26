@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MyFixIt.Common;
@@ -26,159 +25,58 @@ namespace MyFixIt.Persistence
 {
     internal class FixItTaskRepository : IFixItTaskRepository, IDisposable
     {
-        private MyFixItContext db = new MyFixItContext();
-        private ILogger log = null;
+        private MyFixItContext context;
 
-        public FixItTaskRepository(ILogger logger)
+        public FixItTaskRepository(MyFixItContext context)
         {
-            log = logger;
+            this.context = context;
         }
 
-        public async Task<FixItTask> FindTaskByIdAsync(int id)
+        public Task<FixItTask> FindTaskByIdAsync(int id)
         {
-            FixItTask fixItTask = null;
-            Stopwatch timespan = Stopwatch.StartNew();
-
-            try
-            {
-                fixItTask = await db.FixItTasks.FindAsync(id);
-                
-                timespan.Stop();
-                log.TraceApi("SQL Database", "FixItTaskRepository.FindTaskByIdAsync", timespan.Elapsed, "id={0}", id);
-            }
-            catch(Exception e)
-            {
-               log.Error(e, "Error in FixItTaskRepository.FindTaskByIdAsync(id={0})", id);
-               throw;
-            }
-
-            return fixItTask;
+            return context.FixItTasks.FindAsync(id);
         }
 
-        public async Task<List<FixItTask>> FindOpenTasksByOwnerAsync(string userName)
+        public Task<List<FixItTask>> FindOpenTasksByOwnerAsync(string userName)
         {
-            Stopwatch timespan = Stopwatch.StartNew();
-
-            try
-            {
-                var result = await db.FixItTasks
-                    .Where(t => t.Owner == userName)
-                    .Where(t=>t.IsDone == false)
-                    .OrderByDescending(t => t.FixItTaskId).ToListAsync();
-
-                timespan.Stop();
-                log.TraceApi("SQL Database", "FixItTaskRepository.FindTasksByOwnerAsync", timespan.Elapsed, "username={0}", userName);
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                log.Error(e, "Error in FixItTaskRepository.FindTasksByOwnerAsync(userName={0})", userName);
-                throw;
-            }
+            return context.FixItTasks
+                          .Where(t => t.Owner == userName)
+                          .Where(t => t.IsDone == false)
+                          .OrderByDescending(t => t.FixItTaskId).ToListAsync();
         }
 
-        public async Task<List<FixItTask>> FindTasksByCreatorAsync(string creator)
+        public Task<List<FixItTask>> FindTasksByCreatorAsync(string creator)
         {
-            Stopwatch timespan = Stopwatch.StartNew();
-
-            try
-            {
-                var result = await db.FixItTasks
-                    .Where(t => t.CreatedBy == creator)
-                    .OrderByDescending(t => t.FixItTaskId).ToListAsync();
-
-                timespan.Stop();
-                log.TraceApi("SQL Database", "FixItTaskRepository.FindTasksByCreatorAsync", timespan.Elapsed, "creater={0}", creator);
-
-                return result;
-            }
-            catch (Exception e)
-            {
-                log.Error(e, "Error in FixItTaskRepository.FindTasksByCreatorAsync(creater={0})", creator);
-                throw;
-            }
+            return context.FixItTasks
+                          .Where(t => t.CreatedBy == creator)
+                          .OrderByDescending(t => t.FixItTaskId).ToListAsync();
         }
 
-        public async Task CreateAsync(FixItTask taskToAdd)
+        public Task CreateAsync(FixItTask taskToAdd)
         {
-            Stopwatch timespan = Stopwatch.StartNew();
-
-            try
-            {
-                if (taskToAdd.Notes.Contains("fail me"))
-                {
-                    throw new Exception("Task cannot be created");
-                }
-
-                db.FixItTasks.Add(taskToAdd);
-                await db.SaveChangesAsync();
-
-                timespan.Stop();
-                log.TraceApi("SQL Database", "FixItTaskRepository.CreateAsync", timespan.Elapsed, "taskToAdd={0}", taskToAdd);
-            }
-            catch (Exception e)
-            {
-                log.Error(e, "Error in FixItTaskRepository.CreateAsync(taskToAdd={0})", taskToAdd);
-                throw;
-            }
+            context.FixItTasks.Add(taskToAdd);
+            return context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(FixItTask taskToSave)
+        public Task UpdateAsync(FixItTask taskToSave)
         {
-            Stopwatch timespan = Stopwatch.StartNew();
-
-            try {
-                db.Entry(taskToSave).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-
-                timespan.Stop();
-                log.TraceApi("SQL Database", "FixItTaskRepository.UpdateAsync", timespan.Elapsed, "taskToSave={0}", taskToSave);
-            }
-            catch (Exception e)
-            {
-                log.Error(e, "Error in FixItTaskRepository.UpdateAsync(taskToSave={0})", taskToSave);
-                throw;
-            }
+            context.Entry(taskToSave).State = EntityState.Modified;
+            return context.SaveChangesAsync();
         }
-        
+
         public async Task DeleteAsync(Int32 id)
         {
-            Stopwatch timespan = Stopwatch.StartNew();
-
-            try
-            {
-                FixItTask fixittask = await db.FixItTasks.FindAsync(id);
-                db.FixItTasks.Remove(fixittask);
-                await db.SaveChangesAsync();
-
-                timespan.Stop();
-                log.TraceApi("SQL Database", "FixItTaskRepository.DeleteAsync", timespan.Elapsed, "id={0}", id);
-
-            }
-            catch (Exception e)
-            {
-                log.Error(e, "Error in FixItTaskRepository.DeleteAsync(id={0})", id);
-                throw;
-            }
+            var fixittask = await context.FixItTasks.FindAsync(id);
+            context.FixItTasks.Remove(fixittask);
+            await context.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
+            if (context != null)
             {
-                // Free managed resources
-                if (db != null)
-                {
-                    db.Dispose();
-                    db = null;
-                }
+                context.Dispose();
+                context = null;
             }
         }
     }

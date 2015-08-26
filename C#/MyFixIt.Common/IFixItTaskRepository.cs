@@ -23,7 +23,7 @@ namespace MyFixIt.Common
     public interface IFixItTaskRepository
     {
         Task<List<FixItTask>> FindOpenTasksByOwnerAsync(string userName);
-        Task<List<FixItTask>> FindTasksByCreatorAsync(string userName); 
+        Task<List<FixItTask>> FindTasksByCreatorAsync(string creator); 
 
         Task<FixItTask> FindTaskByIdAsync(int id);
  
