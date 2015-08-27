@@ -257,6 +257,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.15.0-build41087.js" />
     <Content Include="Scripts\ai.0.15.0-build41087.min.js" />
+    <Content Include="Scripts\appinsights.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
