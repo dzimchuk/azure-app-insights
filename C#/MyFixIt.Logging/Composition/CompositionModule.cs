@@ -7,7 +7,8 @@ namespace MyFixIt.Logging.Composition
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
+//            builder.RegisterType<Logger>().As<ILogger>().SingleInstance();
+            builder.RegisterType<AiLogger>().As<ILogger>();
         }
     }
 }
