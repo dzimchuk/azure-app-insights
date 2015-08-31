@@ -85,11 +85,6 @@ namespace MyFixIt.Persistence
 
             try
             {
-                if (taskToAdd.Notes.Contains("fail me"))
-                {
-                    throw new Exception("Task cannot be created");
-                }
-
                 await repository.CreateAsync(taskToAdd);
 
                 timespan.Stop();

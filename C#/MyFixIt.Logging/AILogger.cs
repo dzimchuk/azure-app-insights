@@ -70,7 +70,8 @@ namespace MyFixIt.Logging
 
         public void TraceApi(string componentName, string method, TimeSpan timespan, string properties)
         {
-            var telemetry = new TraceTelemetry();
+//            var telemetry = new TraceTelemetry("Trace component call", SeverityLevel.Verbose);
+            var telemetry = new MetricTelemetry(string.Format("{0}::{1}", componentName, method), timespan.TotalMilliseconds);
             telemetry.Properties.Add("component", componentName);
             telemetry.Properties.Add("method", method);
             telemetry.Properties.Add("timespan", timespan.ToString());
@@ -78,7 +79,8 @@ namespace MyFixIt.Logging
             if (!string.IsNullOrWhiteSpace(properties))
                 telemetry.Properties.Add("properties", properties);
 
-            telemetryClient.TrackTrace(telemetry);
+//            telemetryClient.TrackTrace(telemetry);
+            telemetryClient.TrackMetric(telemetry);
         }
 
         public void TraceApi(string componentName, string method, TimeSpan timespan, string fmt, params object[] vars)

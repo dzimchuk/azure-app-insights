@@ -14,11 +14,9 @@
 //
 
 using System;
-using System.Configuration;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using MyFixIt.Common;
 using MyFixIt.Common.Models;
 
 namespace MyFixIt.Controllers
@@ -26,22 +24,18 @@ namespace MyFixIt.Controllers
     [Authorize]
     public class TasksController : Controller
     {
-        private readonly IFixItTaskRepository fixItRepository;
-        private readonly IPhotoService photoService;
-        private readonly IFixItQueueManager queueManager;
+        private readonly ITaskService service;
 
-        public TasksController(IFixItTaskRepository repository, IPhotoService photoStore, IFixItQueueManager queueManager)
+        public TasksController(ITaskService service)
         {
-            fixItRepository = repository;
-            photoService = photoStore;
-            this.queueManager = queueManager;
+            this.service = service;
         }
 
         // GET: /FixIt/
         public async Task<ActionResult> Status()
         {
             string currentUser = User.Identity.Name;
-            var result = await fixItRepository.FindTasksByCreatorAsync(currentUser);
+            var result = await service.ListByCreatorAsync(currentUser);
 
             return View(result);
         }
@@ -63,16 +57,7 @@ namespace MyFixIt.Controllers
             if (ModelState.IsValid)
             {
                 fixittask.CreatedBy = User.Identity.Name;
-                fixittask.PhotoUrl = await photoService.UploadPhotoAsync(photo);
-
-                if (ConfigurationManager.AppSettings["UseQueues"] == "true")
-                {
-                    await queueManager.SendMessageAsync(fixittask);
-                }
-                else
-                {
-                    await fixItRepository.CreateAsync(fixittask);
-                }
+                await service.CreateAsync(fixittask, photo);
 
                 return RedirectToAction("Success");
             }
