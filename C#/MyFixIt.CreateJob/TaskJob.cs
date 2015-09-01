@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using MyFixIt.Common;
 using MyFixIt.Common.Models;
-using Newtonsoft.Json;
 
 namespace MyFixIt.CreateJob
 {
-    internal class TaskJob
+    public class TaskJob
     {
         private readonly IFixItTaskRepository repository;
 
@@ -18,12 +18,13 @@ namespace MyFixIt.CreateJob
             this.repository = repository;
         }
 
-        public async Task ProcessQueueMessage([QueueTrigger("fixits")] string message, TextWriter log)
+        public async Task ProcessQueueMessage([QueueTrigger("fixits")] FixItTask task, TextWriter log)
         {
-            var fixit = JsonConvert.DeserializeObject<FixItTask>(message);
-            await repository.CreateAsync(fixit);
+            CallContext.LogicalSetData(CorrelatingTelemetryInitializer.OPERATION_ID, Guid.NewGuid().ToString());
 
-            log.WriteLine(message);
+            await repository.CreateAsync(task);
+
+            log.WriteLine("Created task {0}", task.Title);
         }
     }
 }
