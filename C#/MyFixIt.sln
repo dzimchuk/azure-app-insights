@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFixIt.WorkerRole", "MyFix
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFixIt.Common", "MyFixIt.Common\MyFixIt.Common.csproj", "{55F68619-5ACD-4561-A1F5-A86F7ED8BCBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFixIt.CreateJob", "MyFixIt.CreateJob\MyFixIt.CreateJob.csproj", "{14B81E7D-0F75-4F01-A01A-2E8366375FE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{55F68619-5ACD-4561-A1F5-A86F7ED8BCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55F68619-5ACD-4561-A1F5-A86F7ED8BCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55F68619-5ACD-4561-A1F5-A86F7ED8BCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B81E7D-0F75-4F01-A01A-2E8366375FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B81E7D-0F75-4F01-A01A-2E8366375FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B81E7D-0F75-4F01-A01A-2E8366375FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B81E7D-0F75-4F01-A01A-2E8366375FE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
