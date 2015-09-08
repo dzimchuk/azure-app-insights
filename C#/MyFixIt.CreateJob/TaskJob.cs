@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using MyFixIt.Common;
@@ -18,13 +15,13 @@ namespace MyFixIt.CreateJob
             this.repository = repository;
         }
 
-        public async Task ProcessQueueMessage([QueueTrigger("fixits")] FixItTask task, TextWriter log)
+        public async Task ProcessQueueMessage([QueueTrigger("fixits")] FixItTaskMessage message, TextWriter log)
         {
-            CallContext.LogicalSetData(CorrelatingTelemetryInitializer.OPERATION_ID, Guid.NewGuid().ToString());
+            CorrelationManager.SetOperationId(message.OperationId);
 
-            await repository.CreateAsync(task);
+            await repository.CreateAsync(message.Task);
 
-            log.WriteLine("Created task {0}", task.Title);
+            log.WriteLine("Created task {0}", message.Task.Title);
         }
     }
 }

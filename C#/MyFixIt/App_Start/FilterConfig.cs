@@ -13,7 +13,6 @@
 // limitations under the License.
 //
 
-using System.Web;
 using System.Web.Mvc;
 using MyFixIt.Infrastructure;
 
@@ -25,6 +24,7 @@ namespace MyFixIt
         {
         //    filters.Add(new HandleErrorAttribute());
             filters.Add(new AiHandleErrorAttribute());
+            filters.Add(new AiCorrelationAttribute());
         }
     }
 }

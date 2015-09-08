@@ -1,17 +1,13 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
+﻿using System.Configuration;
 using Autofac;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.WebJobs;
+using MyFixIt.Common;
 
 namespace MyFixIt.CreateJob
 {
-    // To learn more about Microsoft Azure WebJobs SDK, please see http://go.microsoft.com/fwlink/?LinkID=320976
     class Program
     {
-        // Please set the following connection strings in app.config for this WebJob to run:
-        // AzureWebJobsDashboard and AzureWebJobsStorage
         static void Main()
         {
             InitializeAppInsights();
@@ -20,7 +16,6 @@ namespace MyFixIt.CreateJob
             var config = new JobHostConfiguration { JobActivator = new AutofacJobActivator(container) };
 
             var host = new JobHost(config);
-            // The following code ensures that the WebJob will be running continuously
             host.RunAndBlock();
         }
 

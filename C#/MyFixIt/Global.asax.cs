@@ -13,10 +13,8 @@
 // limitations under the License.
 //
 
-using System;
 using System.Configuration;
 using System.Web.Mvc;
-using System.Linq;
 using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -43,6 +41,7 @@ namespace MyFixIt
         private static void InitializeApplicationInsights()
         {
             TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["ApplicationInsights.InstrumentationKey"];
+            TelemetryConfiguration.Active.TelemetryInitializers.Add(new CorrelatingTelemetryInitializer());
         }
 
         private static void InitializePhotoService()

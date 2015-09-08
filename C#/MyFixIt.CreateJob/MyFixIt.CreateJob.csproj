@@ -91,7 +91,6 @@
   <ItemGroup>
     <Compile Include="AutofacJobActivator.cs" />
     <Compile Include="Composition\CompostionModule.cs" />
-    <Compile Include="CorrelatingTelemetryInitializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TaskJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
