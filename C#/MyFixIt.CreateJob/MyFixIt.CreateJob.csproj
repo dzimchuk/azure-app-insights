@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="AutofacJobActivator.cs" />
     <Compile Include="Composition\CompostionModule.cs" />
+    <Compile Include="CorrelatingTelemetryInitializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TaskJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +99,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\MyFixItSample.pubxml" />
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +117,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="#%5Cpackages%5CMicrosoft.Web.WebJobs.Publish.1.0.6%5Ctools%5Cwebjobs.targets" Condition="Exists('#%5Cpackages%5CMicrosoft.Web.WebJobs.Publish.1.0.6%5Ctools%5Cwebjobs.targets')" />
+  <Import Project="..\packages\Microsoft.Web.WebJobs.Publish.1.0.6\tools\webjobs.targets" Condition="Exists('..\packages\Microsoft.Web.WebJobs.Publish.1.0.6\tools\webjobs.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -2,7 +2,6 @@
 using Autofac;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.WebJobs;
-using MyFixIt.Common;
 
 namespace MyFixIt.CreateJob
 {

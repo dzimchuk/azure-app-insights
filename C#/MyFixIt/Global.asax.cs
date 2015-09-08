@@ -41,7 +41,6 @@ namespace MyFixIt
         private static void InitializeApplicationInsights()
         {
             TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["ApplicationInsights.InstrumentationKey"];
-            TelemetryConfiguration.Active.TelemetryInitializers.Add(new CorrelatingTelemetryInitializer());
         }
 
         private static void InitializePhotoService()

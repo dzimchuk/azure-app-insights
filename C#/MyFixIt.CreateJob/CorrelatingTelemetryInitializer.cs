@@ -1,9 +1,10 @@
 ﻿using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.Extensibility;
+using MyFixIt.Common;
 
-namespace MyFixIt.Common
+namespace MyFixIt.CreateJob
 {
-    public class CorrelatingTelemetryInitializer : ITelemetryInitializer
+    internal class CorrelatingTelemetryInitializer : ITelemetryInitializer
     {
         public void Initialize(ITelemetry telemetry)
         {
